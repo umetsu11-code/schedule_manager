@@ -1,0 +1,17 @@
+<h1>予定詳細</h1>
+<p><strong>タイトル:</strong> <%= @event.title %></p>
+<p><strong>開始日:</strong> <%= @event.start_time.strftime("%Y/%m/%d") %></p>
+<p><strong>終了日:</strong> <%= @event.end_time.strftime("%Y/%m/%d") %></p>
+<p><strong>終日:</strong> <%= @event.all_day ? "○" : "" %></p>
+<p><strong>スケジュールメモ:</strong> <%= @description %></p>
+
+<%= link_to '一覧に戻る', events_path %> |
+<%= link_to '編集', edit_event_path(@event) %> |
+<%= link_to '削除', '#', class: 'delete-link', data: { id: @event.id } %>
+
+<!-- モーダル -->
+<div id="delete-modal" style="display:none;">
+  <p>予定を削除しますか？</p>
+  <button id="confirm-delete">削除する</button>
+  <button id="cancel-delete">キャンセル</button>
+</div>

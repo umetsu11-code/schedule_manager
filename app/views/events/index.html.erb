@@ -1,0 +1,40 @@
+<h1>スケジュール一覧</h1>
+<p>今日の日付: <%= @current_date %></p>
+<p>全てのスケジュール: <%= @total_events %></p>
+<%= link_to '新しい予定を追加', new_event_path %>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>タイトル</th>
+      <th>開始日</th>
+      <th>終了日</th>
+      <th>終日</th>
+      <th>更新日時</th>
+      <th>アクション</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.id %></td>
+        <td><%= link_to event.title, event %></td>
+        <td><%= event.start_time.strftime("%Y/%m/%d") %></td>
+        <td><%= event.end_time.strftime("%Y/%m/%d") %></td>
+        <td><%= event.all_day ? "○" : "" %></td>
+        <td><%= event.updated_at.strftime("%Y/%m/%d %H:%M") %></td>
+        <td>
+          <%= link_to '編集', edit_event_path(event) %>
+          <%= link_to '削除', '#', class: 'delete-link', data: { id: event.id } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<!-- モーダル -->
+<div id="delete-modal" style="display:none;">
+  <p>予定を削除しますか？</p>
+  <button id="confirm-delete">削除する</button>
+  <button id="cancel-delete">キャンセル</button>
+</div>
