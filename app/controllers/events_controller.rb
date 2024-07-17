@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show edit update destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def index
     @events = Event.all
@@ -41,7 +41,10 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     flash[:notice] = 'スケジュールが削除されました。'
-    redirect_to events_url
+    respond_to do |format|
+      format.html { redirect_to events_url }
+      format.json { head :no_content }
+    end
   end
 
   private
